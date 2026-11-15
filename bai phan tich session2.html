@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>bai phan tich session2</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h3 id="bước-1-đề-xuất-2-prompt-mẫu">Bước 1: Đề xuất 2 prompt mẫu</h3>
+<p><strong>Giải pháp 1: Prompt đơn giản (Ngắn gọn)</strong><br>
+Đọc đánh giá sau và xuất ra tên sản phẩm, cảm xúc (Tích cực/Tiêu cực) và ý chính dưới dạng JSON:<br>
+“Tai nghe đeo êm, âm bass hay nhưng pin hơi yếu.”_<br>
+<strong>Giải pháp 2: Prompt chi tiết (Áp dụng CREATE, Few-shot &amp; Ép định dạng)</strong><br>
+<strong>[Context &amp; Role]:</strong> Bạn là hệ thống trích xuất dữ liệu phản hồi khách hàng tự động.<br>
+<strong>[Action]:</strong> Phân tích đánh giá đầu vào và trích xuất thông tin.<br>
+<strong>[Explicit Constraints]:</strong> Chỉ xuất duy nhất mã JSON chuẩn, không kèm lời chào hay giải thích. Bắt buộc có 3 trường: <code>san_pham</code>, <code>cam_xuc</code> (“Tích cực” hoặc “Tiêu cực”), <code>y_chinh</code> (mảng).<br>
+<strong>[Tone]:</strong> Chính xác, khách quan.<br>
+<strong>[Example (Few-shot)]:</strong><br>
+Input: <em>“Chuột bấm nhạy, giá rẻ nhưng dây hơi ngắn.”</em><br>
+Output: <code>{"san_pham": "Chuột", "cam_xuc": "Tích cực", "y_chinh": ["bấm nhạy", "giá rẻ", "dây hơi ngắn"]}</code><br>
+<strong>Dữ liệu cần xử lý:</strong> <em>“Tai nghe đeo êm, âm bass hay nhưng pin hơi yếu.”</em></p>
+<h3 id="bước-2-bảng-so-sánh-trade-off">Bước 2: Bảng so sánh Trade-off</h3>
+
+<table>
+<thead>
+<tr>
+<th>tiêu chí</th>
+<th>giải pháp 1</th>
+<th>giải pháp 2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Độ dễ hiểu</td>
+<td>cao</td>
+<td>trung bình</td>
+</tr>
+<tr>
+<td>Tốn token</td>
+<td>ít</td>
+<td>nhiều</td>
+</tr>
+<tr>
+<td>chặn lỗi biên</td>
+<td>trung bình</td>
+<td>cực tốt</td>
+</tr>
+</tbody>
+</table><h3 id="bước-3-lựa-chọn-và-chạy-thử">Bước 3: Lựa chọn và chạy thử</h3>
+<p>** Lựa chọn phương án tối ưu:** Chọn <strong>Giải pháp 2</strong>. Lý do là khi xử lý dữ liệu hoặc ghép nối với code, sự ổn định của định dạng là quan trọng nhất. Giải pháp 1 tuy ngắn nhưng AI rất hay kèm theo câu dẫn (ví dụ:  <em>“Dưới đây là kết quả của bạn…”</em>) làm hỏng cấu trúc JSON. Giải pháp 2 dùng khung CREATE và ví dụ mẫu (Few-shot) giúp AI hiểu chính xác khuôn mẫu cần trả về.</p>
+</div>
+</body>
+
+</html>
